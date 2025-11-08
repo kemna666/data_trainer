@@ -1,6 +1,6 @@
 import numpy as np
 from loaderx import Dataset,DataLoader
-
+from functools import partial
 def transform(batch, dtype):
     return (batch[0][..., None] / 255.0).astype(dtype) , batch[1].astype(np.int32)
 

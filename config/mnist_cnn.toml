@@ -10,5 +10,6 @@ kernel_size=[3,3]
 num_classes=10
 img_size=[28,28]
 [train]
-epoches=10
-learning_rate=1e-4
+epoches=20
+learning_rate=0.01
+loss_function="softmax_cross_entropy_with_integer_labels"

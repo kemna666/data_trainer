@@ -8,7 +8,7 @@ from feeder.mnist import Mnist
 from stage.train import process_train
 from model.model_registry import choose_model 
 from feeder.dataset import choose_dataloader
-
+from utils.loss_function import loss_fn
 
 
 if __name__ =='__main__':    
@@ -25,9 +25,9 @@ if __name__ =='__main__':
     )
     num_epochs = configs['train']['epoches']
     model = choose_model(configs['model'],rngs=rngs)
+    loss_function = loss_fn(configs['train']['loss_function'])
     train_loader = choose_dataloader(configs['dataset'],data='x_train',label='y_train',num_epochs=num_epochs,dtype=jnp.bfloat16)
-    print("train_loader:", train_loader)
     val_loader = choose_dataloader(configs['dataset'],data='x_val',label='y_val',num_epochs=num_epochs)
     tx=optax.adamw(learning_rate=configs['train']['learning_rate'],b1=0.9)
     optimizer = nnx.Optimizer(model,tx, wrt=nnx.Param)
-    process_train(train_loader=train_loader,val_loader=val_loader,model=model,optimizer=optimizer,metrics=metrics)
+    process_train(train_loader=train_loader,val_loader=val_loader,loss_function=loss_function,model=model,optimizer=optimizer,metrics=metrics)
