@@ -1,0 +1,14 @@
+[dataset]
+dataset="mnist"
+batch_size=128
+path="data/mnist/mnist.npz"
+[model]
+model="CNN"
+in_channels=1
+base_channels=8
+kernel_size=[3,3]
+num_classes=10
+img_size=[28,28]
+[train]
+epoches=10
+learning_rate=1e-4
