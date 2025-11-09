@@ -8,7 +8,9 @@ class CNN(nnx.Module):
         self.avg_pool = partial(nnx.avg_pool,window_shape=(2,2),strides=(2,2))
         h,w = img_size
         input_linear = (h//(2*2)) * (w//(2*2)) * (2*base_channels)
+        print(input_linear)
         self.linear1 = nnx.Linear(input_linear,256,rngs=rngs)
+        self.dropout = nnx.Dropout(0.5,rngs=rngs)
         self.linear2 = nnx.Linear(256,num_classes,rngs=rngs)
     def __call__(self,x):
         x = self.conv1(x)
@@ -21,5 +23,6 @@ class CNN(nnx.Module):
         x = x.reshape(x.shape[0],-1)
         x = self.linear1(x)
         x = nnx.relu(x)
+        x = self.dropout(x)
         x = self.linear2(x)
         return x

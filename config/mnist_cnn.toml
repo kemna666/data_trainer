@@ -1,6 +1,6 @@
 [dataset]
 dataset="mnist"
-batch_size=128
+batch_size=256
 path="data/mnist/mnist.npz"
 [model]
 model="CNN"
@@ -11,5 +11,5 @@ num_classes=10
 img_size=[28,28]
 [train]
 epoches=20
-learning_rate=0.01
+learning_rate=0.1
 loss_function="softmax_cross_entropy_with_integer_labels"
