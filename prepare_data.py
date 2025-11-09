@@ -1,13 +1,11 @@
 from dataset_processer import mnist
-from dataset_processer.cifra_10 import process_cifra
-
+from dataset_processer.cifra_10 import process_cifar10
 
 def prepare(dataset:str,root_path:str):
     datasets = {
-        'mnist': mnist.process_mnist(root_path),
-        'cifra-10':process_cifra(root_path) 
+        'mnist': mnist.process_mnist,
+        'cifra-10':process_cifar10 
     }
-    return datasets.get(dataset,f'{dataset}输入错误，可选项：{datasets}')
+    datasets[dataset](root_path)
 
-
-prepare('mnist','data/mnist')
+prepare('cifra-10','data/cifra_10')

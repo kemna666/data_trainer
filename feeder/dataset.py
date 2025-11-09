@@ -1,12 +1,11 @@
 import numpy as np
 
-from .mnist import Mnist,transform,loader
+from . import mnist,cifra
 
 
-dataset_registry = {
-    'mnist':Mnist
-}
 
 def choose_dataloader(dataset_dict,data,label,num_epochs=1,dtype=np.float32):
     if dataset_dict['dataset'].lower() =='mnist':
-        return loader(dataset_dict['path'], data=data, label=label,batch_size=dataset_dict['batch_size'],num_epochs=num_epochs,dtype=dtype)
+        return mnist.loader(dataset_dict['path'], data=data, label=label,batch_size=dataset_dict['batch_size'],num_epochs=num_epochs,dtype=dtype)
+    elif dataset_dict['dataset'].lower() =='cifra':
+        return cifra.loader(dataset_dict['path'], data=data, label=label,batch_size=dataset_dict['batch_size'],num_epochs=num_epochs,dtype=dtype)

@@ -36,6 +36,5 @@ if __name__ =='__main__':
         weight_decay=1e-4
     )
 )
-    print(configs['train']['learning_rate'])
     optimizer = nnx.Optimizer(model,tx, wrt=nnx.Param)
-    process_train(train_loader=train_loader,val_loader=val_loader,loss_function=loss_function,model=model,optimizer=optimizer,metrics=metrics)
+    process_train(train_loader=train_loader,val_loader=val_loader,loss_function=loss_function,model=model,optimizer=optimizer,metrics=metrics,num_epochs=num_epochs)
