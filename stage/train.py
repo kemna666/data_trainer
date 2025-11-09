@@ -1,7 +1,7 @@
 import os
 import orbax.checkpoint as ocp
 from flax import nnx
-
+from tqdm import tqdm
 
 
 
@@ -34,17 +34,18 @@ def process_train(train_loader,val_loader,loss_function,model,optimizer,metrics,
     # 按epochs进行训练
     for epoch in range(num_epochs):
         # 训练一个epoch
-        for batch in train_batches:
+        pbar = tqdm(train_batches, desc=f"Epoch {epoch+1}/{num_epochs}", leave=False)
+        for batch in pbar:
             train_step(model, loss_function, optimizer, metrics, batch)
             step += 1
-        
+            pbar.set_postfix({'loss': f"{metrics.compute()['loss']:.4f}"})
         # 在每个epoch结束后进行验证
         train_metrics = metrics.compute()
         print(f"Epoch:{epoch+1}_Train Acc@1: {train_metrics['accuracy']:.4f} loss: {train_metrics['loss']:.4f}")
-        metrics.reset()  # Reset the metrics for the train set.
+        metrics.reset()  # 重置指标
         
-        # Compute the metrics on the validation set
-        for val_batch in val_batches:
+        val_pbar = tqdm(val_batches, desc=f"Validation {epoch+1}/{num_epochs}", leave=False)
+        for val_batch in val_pbar:
             eval_step(model, metrics, val_batch, loss_function)
         
         val_metrics = metrics.compute()
@@ -54,7 +55,7 @@ def process_train(train_loader,val_loader,loss_function,model,optimizer,metrics,
             save_checkpoint(model, step)
             best_acc = val_metrics['accuracy']
         
-        metrics.reset()  # Reset the metrics for the val set.
+        metrics.reset()  
 
 def save_checkpoint(model,step):
     # save checkpoint
