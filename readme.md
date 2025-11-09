@@ -10,3 +10,13 @@ python prepare_data.py ${dataset} ${data_path}
 ~~~bash
 python main.py ${config}
 ~~~
+
+## 数据集下载链接
+mnist:
+[Training images](https://storage.googleapis.com/cvdf-datasets/mnist/train-images-idx3-ubyte.gz),
+[Training labels](https://storage.googleapis.com/cvdf-datasets/mnist/train-labels-idx1-ubyte.gz)
+[Testing images](https://storage.googleapis.com/cvdf-datasets/mnist/t10k-images-idx3-ubyte.gz),
+[Testing labels](https://storage.googleapis.com/cvdf-datasets/mnist/t10k-labels-idx1-ubyte.gz)
+
+cifar-10:
+https://www.cs.toronto.edu/~kriz/cifar.html

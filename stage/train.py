@@ -20,11 +20,7 @@ def eval_step(model,metrics:nnx.MultiMetric,batch,loss_fn):
 def process_train(train_loader,val_loader,loss_function,model,optimizer,metrics,num_epochs):
     best_acc = 0
     step = 0
-    
-    # 获取一批验证数据用于定期验证
     val_batches = list(val_loader)
-    
-    # 将训练数据转换为列表，以便我们可以按epochs处理
     train_batches = list(train_loader)
     steps_per_epoch = len(train_batches)
     total_steps = steps_per_epoch * num_epochs
